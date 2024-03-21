@@ -22,10 +22,12 @@ $news = $stmt->fetch();
 </head>
 <body>
 <div class="container py-3">
-    <?php include_once $_SERVER["DOCUMENT_ROOT"] . "/_header.php"; ?>
+    <?php include_once $_SERVER["DOCUMENT_ROOT"] . "/_header.php";
+    include_once($_SERVER['DOCUMENT_ROOT'] . "/config/constants.php");
+    ?>
     <h1 class="text-center">Edit News</h1>
 
-    <form method="post" action="update-news.php">
+    <form method="post" action="update-news.php" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?php echo $news['id']; ?>">
         <div class="form-group">
             <label for="name">Name:</label>
@@ -38,6 +40,11 @@ $news = $stmt->fetch();
         <div class="form-group">
             <label for="date">Date:</label>
             <input type="date" class="form-control" id="date" value="<?php echo $news['date']; ?>" name="date" required>
+        </div>
+        <div>
+            <br/><img height='50' src="<?php echo 'http://local.PHP.com:81/'.UPLOADING.'/'.$news["image"]; ?>" /><br/>
+            <label for="formFile" class="form-label">Image:</label>
+            <input class="form-control" type="file" id="image" name="image" accept="image/*"/>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

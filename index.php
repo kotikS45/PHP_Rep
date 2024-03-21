@@ -1,4 +1,7 @@
-<?php global $dbh; ?>
+<?php
+global $dbh;
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -22,6 +25,7 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Name</th>
+            <th scope="col">Image</th>
             <th scope="col">Description</th>
             <th scope="col">Date</th>
             <th scope="col">Opt</th>
@@ -29,6 +33,7 @@
         </thead>
         <tbody>
         <?php
+        include_once($_SERVER['DOCUMENT_ROOT'] . "/config/constants.php");
         $stm = $dbh->query('SELECT * FROM news');
         $rows = $stm->fetchAll();
         foreach($rows as $row) {
@@ -36,13 +41,15 @@
             $name = $row["name"];
             $description = $row["description"];
             $date = $row["date"];
+            $image = 'http://local.PHP.com:81/'.UPLOADING.'/'.$row["image"];
             echo "
         <tr>
             <th scope='row'>$id</th>
             <td>$name</td>
+            <td><img height='50' src='$image' /></td>
             <td>$description</td>
             <td>$date</td>
-            <td>
+            <td width='150'>
                 <a href='/edit-news.php?id=$id' class='btn btn-primary'>Edit</a>
                 <a href='/delete-news.php?id=$id' class='btn btn-primary'>Delete</a>
             </td>
@@ -57,41 +64,3 @@
 <script src="/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
